@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.example.VECS.app-merged_res-39:/mipmap-xxhdpi_ic_custom_logo.png.flat",
+        "source": "com.example.VECS.app-main-41:/mipmap-xxhdpi/ic_custom_logo.png"
+    },
+    {
+        "merged": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-merged_res-39:\\drawable_hero.jpg.flat",
+        "source": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-main-41:\\drawable\\hero.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-merged_res-39:\\drawable_hero.png.flat",
+        "source": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-main-41:\\drawable\\hero.png"
+    },
+    {
+        "merged": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-main-41:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-merged_res-39:\\mipmap-xxhdpi_ic_custom_logo.png.flat",
+        "source": "C:\\Users\\Shayan Farid\\.gradle\\daemon\\8.5\\com.example.VECS.app-main-41:\\mipmap-xxhdpi\\ic_custom_logo.png"
+    }
+]
