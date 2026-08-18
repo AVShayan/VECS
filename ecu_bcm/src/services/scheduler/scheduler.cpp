@@ -22,18 +22,24 @@ void Scheduler_Tick(){
 }
 
 void Scheduler_Run(){
-    
-    // Run 1ms tasks here
+
+    /* Run 1ms tasks here
+       Critical Tasks only!
+     -- 1ms Tasks reserved for Motor Control, Regen and Throttle Mapping -- etc.
+    */ 
 
     if(tick_10ms){
-        // Run 10ms tasks
+        // Reset the 10ms tick flag for next cycle
+        tick_10ms = 0;
+        // // Run 10ms tasks here
         InputManager_Update();
-        VehicleState_Update();
+        // VehicleState_Update();
         Indicator_Update();
         Indicator_Apply();
         HeadLights_Update();
         HeadLights_Apply();
         Horn_Update();
         Horn_Apply();
+        HeadLights_Apply();
     }
 }

@@ -1,0 +1,40 @@
+# PlatformIO
+.pio/
+.piolibdeps/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Build artifacts
+*.elf
+*.hex
+*.bin
+*.map
+
+# Compiled object files
+*.o
+*.a
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*~
+*.bak

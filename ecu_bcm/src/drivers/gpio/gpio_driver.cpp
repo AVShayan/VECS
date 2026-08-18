@@ -1,11 +1,17 @@
 #include<Arduino.h>
 
-#define LEFT_INDICATOR_PIN PA2
-#define RIGHT_INDICATOR_PIN PA4
+// GPIO A02 and A04 are comnnected to the Bike's Indicators
+#define LEFT_INDICATOR PA2
+#define RIGHT_INDICATOR PA4
+//#define HORN_PIN PA7
+#define HEADLIGHT_PIN PA8
 
 void GPIO_Init(){
-    pinMode(LEFT_INDICATOR_PIN,OUTPUT);
-    pinMode(RIGHT_INDICATOR_PIN,OUTPUT);
+    // Pin Configurations for Relays and MOSFETs
+    pinMode(LEFT_INDICATOR,OUTPUT);
+    pinMode(RIGHT_INDICATOR,OUTPUT);
+//    pinMode(HORN_PIN,OUTPUT);
+    pinMode(HEADLIGHT_PIN,OUTPUT);
 }
 
 void GPIO_WRITE(uint8_t pin , uint8_t state){

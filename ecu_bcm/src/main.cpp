@@ -11,10 +11,12 @@ void setup(){
   Scheduler_Init();
   GPIO_Init();
   InputManager_Init();
-  VehicleState_Init();
+  //VehicleState_Init();
   Indicator_Init();
   HeadLights_Init();
   Horn_Init();
+  pinMode(PC13,OUTPUT);
+  digitalWrite(PC13,LOW);
 }
 
 void loop(){
