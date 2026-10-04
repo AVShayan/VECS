@@ -1,81 +1,137 @@
-#include<Arduino.h>
+#include <Arduino.h>
 #include "drivers/gpio/gpio_driver.h"
 #include "app/states/vehicle_state/vehicle_state.h"
+#include "app/indicators/indicator.h"
 
-// GPIO A02 and A04 are comnnected to the Bike's Indicators
-#define LEFT_INDICATOR PA2
+// GPIO A02 and A04 are connected to the bike's indicators
+#define LEFT_INDICATOR  PA2
 #define RIGHT_INDICATOR PA4
 
+// Actual flasher output states
 static uint8_t left_indicator_state = 0;
-static uint8_t left_indicator_counter = 0;
 static uint8_t right_indicator_state = 0;
+
+// Flasher counters
+static uint8_t left_indicator_counter = 0;
 static uint8_t right_indicator_counter = 0;
 
-static uint8_t left_indicator_request = 1;
-static uint8_t right_indicator_request = 1;
+// Local requests
+static uint8_t local_left_indicator_request = 0;
+static uint8_t local_right_indicator_request = 0;
+static uint8_t local_hazard_request = 0;
 
-void Indicator_Init(){
-    pinMode(LEFT_INDICATOR,OUTPUT);
-    pinMode(RIGHT_INDICATOR,OUTPUT);
-    // Flasher Relay Variables
+// Remote TCU request
+static uint8_t remote_hazard_request = 0;
+
+void Indicator_Init()
+{
+    pinMode(LEFT_INDICATOR, OUTPUT);
+    pinMode(RIGHT_INDICATOR, OUTPUT);
+
     left_indicator_state = 0;
-    left_indicator_counter = 0;
     right_indicator_state = 0;
+
+    left_indicator_counter = 0;
     right_indicator_counter = 0;
-    left_indicator_request = 0;
-    right_indicator_request = 0;
+
+    local_left_indicator_request = 0;
+    local_right_indicator_request = 0;
+    local_hazard_request = 0;
+
+    remote_hazard_request = 0;
 }
 
-void LeftIndicator_setRequest(uint8_t request){
-    left_indicator_request = request;
+void LeftIndicator_setRequest(uint8_t request)
+{
+    local_left_indicator_request = request;
 }
 
-void RightIndicator_setRequest(uint8_t request){
-    right_indicator_request = request;
+void RightIndicator_setRequest(uint8_t request)
+{
+    local_right_indicator_request = request;
 }
 
-//Hazard Indicator is a special case where both left and right indicators are turned on simultaneously.
-void HazardIndicator_setRequest(uint8_t request){
-    left_indicator_request = request;
-    right_indicator_request = request;
+void HazardIndicator_setRequest(uint8_t request)
+{
+    local_hazard_request = request;
+}
+
+void RemoteHazardIndicator_setRequest(uint8_t request)
+{
+    remote_hazard_request = request;
 }
 
 void Indicator_Update(){
+    uint8_t hazard_request =
+        local_hazard_request || remote_hazard_request;
 
-    // Toggle Indicators only for READY & DRIVE States
-    // if(VehicleState_Get() == VEH_OFF || VehicleState_Get() == VEH_BOOT || VehicleState_Get() == VEH_FAULT){
-    //     left_indicator_request = 0;
-    //     right_indicator_request = 0;
-    //     return;
-    // }
+    uint8_t left_request =
+        local_left_indicator_request || hazard_request;
 
-    // Flasher Relay Logic
-    if(left_indicator_request){
+    uint8_t right_request =
+        local_right_indicator_request || hazard_request;
+
+    if (VehicleState_Get() == VEH_OFF)
+    {
+        left_indicator_state = 0;
+        right_indicator_state = 0;
+
+        left_indicator_counter = 0;
+        right_indicator_counter = 0;
+
+        return;
+    }
+
+    // LEFT flasher
+    if (left_request)
+    {
         left_indicator_counter++;
-        if(left_indicator_counter >= 50){
+
+        if (left_indicator_counter >= 50)
+        {
             left_indicator_state = !left_indicator_state;
             left_indicator_counter = 0;
         }
     }
-    else{
+    else
+    {
         left_indicator_state = 0;
         left_indicator_counter = 0;
     }
-    if(right_indicator_request){
+
+    // RIGHT flasher
+    if (right_request)
+    {
         right_indicator_counter++;
-        if(right_indicator_counter >= 50){
+
+        if (right_indicator_counter >= 50)
+        {
             right_indicator_state = !right_indicator_state;
             right_indicator_counter = 0;
         }
     }
-    else{
+    else
+    {
         right_indicator_state = 0;
         right_indicator_counter = 0;
     }
 }
 
 void Indicator_Apply(){
-    // Drive the indicator relays
-    GPIO_WRITE(LEFT_INDICATOR,left_indicator_state);
-    GPIO_WRITE(RIGHT_INDICATOR,right_indicator_state);
+    GPIO_WRITE(LEFT_INDICATOR, left_indicator_state);
+    GPIO_WRITE(RIGHT_INDICATOR, right_indicator_state);
+}
+
+uint8_t Indicator_GetLeftOutput()
+{
+    return left_indicator_state;
+}
+
+uint8_t Indicator_GetRightOutput()
+{
+    return right_indicator_state;
+}
+
+uint8_t Indicator_IsHazardActive(){
+    return local_hazard_request || remote_hazard_request;
 }

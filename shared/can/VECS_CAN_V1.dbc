@@ -1,0 +1,72 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: TCU BCM
+VAL_TABLE_ Request 1 "Request" 0 "NoRequest" ;
+VAL_TABLE_ Fault 1 "Fault" 0 "NoFault" ;
+VAL_TABLE_ State 0 "OFF" 1 "ON" ;
+
+
+BO_ 512 TCU_Request: 1 TCU
+ SG_ TCU_RequestCounter : 2|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ RemoteHazardRequest : 1|1@1+ (1,0) [0|1] ""  BCM
+ SG_ RemoteHeadlightRequest : 0|1@1+ (1,0) [0|1] ""  BCM
+
+BO_ 256 BCM_Status: 1 BCM
+ SG_ BCM_StatusCounter : 5|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BCMFault : 4|1@1+ (1,0) [0|1] ""  TCU
+ SG_ HeadlightsActive : 3|1@1+ (1,0) [0|1] ""  TCU
+ SG_ HazardActive : 2|1@1+ (1,0) [0|1] ""  TCU
+ SG_ RightIndicator : 1|1@1+ (1,0) [0|1] ""  TCU
+ SG_ LeftIndicator : 0|1@1+ (1,0) [0|1] ""  TCU
+
+
+
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_ "ECU" BU_ TCU "TCU";
+BA_ "ECU" BU_ BCM "BCM";
+VAL_ 512 RemoteHazardRequest 1 "Request" 0 "NoRequest" ;
+VAL_ 512 RemoteHeadlightRequest 1 "Request" 0 "NoRequest" ;
+VAL_ 256 BCMFault 1 "Fault" 0 "NoFault" ;
+VAL_ 256 HeadlightsActive 0 "OFF" 1 "ON" ;
+VAL_ 256 HazardActive 0 "OFF" 1 "ON" ;
+VAL_ 256 RightIndicator 0 "OFF" 1 "ON" ;
+VAL_ 256 LeftIndicator 0 "OFF" 1 "ON" ;
+

@@ -4,8 +4,8 @@
 #include "app/brakelights/brakelights.h"
 
 static BrakeLightState_t current_state = BRAKELIGHT_OFF;
-// Brakelight Relay is connected to GPIO 12 in STM32.
-static const uint8_t BRAKELIGHT_PIN = PA12;
+// Brakelight Relay is connected to GPIO PB1 in STM32.
+static const uint8_t BRAKELIGHT_PIN = PB5;
 
 
 void BrakeLights_Init(){

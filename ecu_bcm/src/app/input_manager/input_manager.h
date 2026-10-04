@@ -3,5 +3,6 @@
 
 void InputManager_Init();
 void InputManager_Update();
+bool getIgnitionState();
 
 #endif

@@ -1,9 +1,11 @@
 #include <cstdint>
 #include "app/input_manager/input_manager.h"
+#include "services/can/can_service.h"
 #include "app/states/vehicle_state/vehicle_state.h"
 #include "app/indicators/indicator.h"
 #include "app/headlights/headlights.h"
 #include "app/horn/horn.h"
+#include "app/ignition/ignition.h"
 
 static uint32_t tick_1ms = 0;
 static uint32_t tick_10ms = 0;
@@ -33,7 +35,8 @@ void Scheduler_Run(){
         tick_10ms = 0;
         // // Run 10ms tasks here
         InputManager_Update();
-        // VehicleState_Update();
+        CAN_Service_Update();
+        VehicleState_Update();
         Indicator_Update();
         Indicator_Apply();
         HeadLights_Update();
@@ -41,5 +44,7 @@ void Scheduler_Run(){
         Horn_Update();
         Horn_Apply();
         HeadLights_Apply();
+        Ignition_Update();
+        Ignition_Apply();
     }
 }

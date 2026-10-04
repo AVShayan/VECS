@@ -1,0 +1,15 @@
+First we will design and develop the Body Control Module (BCM) for the bike so that we gain complete control over the body electronics.
+
+Once the BCM is integrated and tested thoroughly, we will design and develop the Android Application for VECS which will later communicate with the bike's TCU. Initially, the app will be very simple showing only battery's SOC, bike's expected range and Ping my Bike feature. The main purpose of this version is to ensure the app communicates with the bike effectively. Once that is established, we will upgrade gradually.
+
+Once the app is ready, we will design and develop the Telematics Control Unit (TCU). This ECU will be the only one who will communicate with the internet. Initially, this too will be very simple aiming to make sure the connection with the app is strong.
+
+Once the BCM, TCU and the app are ready, we will start working on the new wiring harness of the bike. We will design the CAN Bus that will run from the rear end to the front of the bike.
+
+We will then completely change the electrical accessories wiring harness of the bike.
+
+At this stage, we will have BCM having complete control over the bike's body electronics and the TCU communicating with the app. Moreover, BCM and TCU will communicate via the new CAN Bus.
+
+------------  Work to be done till September 10 ------------
+
+
