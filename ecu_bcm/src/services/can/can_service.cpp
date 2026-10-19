@@ -458,11 +458,16 @@ void CAN_Service_Update()
         // Transmit BCM Status
         // ---------------------------------------------
 
+        //Serial.println("BEFORE CAN SEND");
+
+
         CAN_Driver_Send(
             0x100,
             payload,
             2
         );
+
+        //Serial.println("BCM LOOP ALIVE");
 
 
         // ---------------------------------------------

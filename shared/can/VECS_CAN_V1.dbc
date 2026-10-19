@@ -40,13 +40,17 @@ VAL_TABLE_ State 0 "OFF" 1 "ON" ;
 
 
 BO_ 512 TCU_Request: 1 TCU
- SG_ TCU_RequestCounter : 2|4@1+ (1,0) [0|15] "" Vector__XXX
- SG_ RemoteHazardRequest : 1|1@1+ (1,0) [0|1] ""  BCM
+ SG_ RemoteIgnitionRequest : 3|1@1+ (1,0) [0|1] ""  BCM
  SG_ RemoteHeadlightRequest : 0|1@1+ (1,0) [0|1] ""  BCM
+ SG_ TCU_RequestCounter : 4|3@1+ (1,0) [0|7] ""  BCM
+ SG_ RemoteHazardRequest : 1|1@1+ (1,0) [0|1] ""  BCM
+ SG_ RemotePingRequest : 2|1@1+ (1,0) [0|1] ""  BCM
 
-BO_ 256 BCM_Status: 1 BCM
- SG_ BCM_StatusCounter : 5|3@1+ (1,0) [0|7] "" Vector__XXX
- SG_ BCMFault : 4|1@1+ (1,0) [0|1] ""  TCU
+BO_ 256 BCM_Status: 2 BCM
+ SG_ IgnitionState : 5|1@1+ (1,0) [0|1] ""  TCU
+ SG_ HornActive : 4|1@1+ (1,0) [0|1] ""  TCU
+ SG_ BCM_StatusCounter : 8|3@1+ (1,0) [0|7] ""  TCU
+ SG_ BCMFault : 6|1@1+ (1,0) [0|1] ""  TCU
  SG_ HeadlightsActive : 3|1@1+ (1,0) [0|1] ""  TCU
  SG_ HazardActive : 2|1@1+ (1,0) [0|1] ""  TCU
  SG_ RightIndicator : 1|1@1+ (1,0) [0|1] ""  TCU
@@ -55,15 +59,19 @@ BO_ 256 BCM_Status: 1 BCM
 
 
 BA_DEF_ BU_  "ECU" STRING ;
-BA_DEF_  "BusType" STRING ;
 BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_  "BusType" STRING ;
 BA_DEF_DEF_  "ECU" "";
-BA_DEF_DEF_  "BusType" "CAN";
 BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_DEF_DEF_  "BusType" "CAN";
 BA_ "ECU" BU_ TCU "TCU";
 BA_ "ECU" BU_ BCM "BCM";
+VAL_ 512 RemoteIgnitionRequest 1 "Request" 0 "No Request" ;
+VAL_ 512 RemoteHeadlightRequest 1 "Request" 0 "No Request" ;
 VAL_ 512 RemoteHazardRequest 1 "Request" 0 "NoRequest" ;
-VAL_ 512 RemoteHeadlightRequest 1 "Request" 0 "NoRequest" ;
+VAL_ 512 RemotePingRequest 1 "Request" 0 "NoRequest" ;
+VAL_ 256 IgnitionState 0 "OFF" 1 "ON" ;
+VAL_ 256 HornActive 0 "OFF" 1 "ON" ;
 VAL_ 256 BCMFault 1 "Fault" 0 "NoFault" ;
 VAL_ 256 HeadlightsActive 0 "OFF" 1 "ON" ;
 VAL_ 256 HazardActive 0 "OFF" 1 "ON" ;

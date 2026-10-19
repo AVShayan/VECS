@@ -7,7 +7,6 @@
 
 #define HORN_PIN PA7
 
-
 // ==================================================
 // Horn State
 // ==================================================
@@ -16,7 +15,6 @@ static uint8_t local_horn_request = 0;
 static uint8_t remote_horn_request = 0;
 
 static uint8_t horn_output = 0;
-
 
 // ==================================================
 // Initialization
@@ -29,7 +27,6 @@ void Horn_Init(){
     remote_horn_request = 0;
     horn_output = 0;
 }
-
 
 // ==================================================
 // Horn Update
@@ -51,7 +48,6 @@ void Horn_Update(){
         return;
     }
 
-
     // ----------------------------------------------
     // Remote horn has priority
     //
@@ -63,7 +59,6 @@ void Horn_Update(){
         horn_output = 1;
         return;
     }
-
 
     // ----------------------------------------------
     // Local horn
@@ -83,7 +78,6 @@ void Horn_Update(){
         local_horn_request ? 1 : 0;
 }
 
-
 // ==================================================
 // Apply Output
 // ==================================================
@@ -95,7 +89,6 @@ void Horn_Apply(){
     );
 }
 
-
 // ==================================================
 // Local Horn Request
 // ==================================================
@@ -105,7 +98,6 @@ void Horn_setRequest(uint8_t request){
         request ? 1 : 0;
 }
 
-
 // ==================================================
 // Remote Horn Request
 // ==================================================
@@ -114,7 +106,6 @@ void Horn_setRemoteRequest(uint8_t request){
     remote_horn_request =
         request ? 1 : 0;
 }
-
 
 // ==================================================
 // Get Actual Horn Output

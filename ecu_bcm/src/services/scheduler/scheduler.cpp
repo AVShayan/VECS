@@ -43,7 +43,6 @@ void Scheduler_Run(){
         HeadLights_Apply();
         Horn_Update();
         Horn_Apply();
-        HeadLights_Apply();
         Ignition_Update();
         Ignition_Apply();
     }
